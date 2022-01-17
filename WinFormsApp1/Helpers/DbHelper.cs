@@ -1,17 +1,21 @@
 ﻿using MySql.Data.MySqlClient;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Forms;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
 
 namespace WinFormsApp1.Helpers
 {
     public class DbHelper
     {
-        private MySqlConnection connection;
         private string server;
         private string database;
         private string uid;
         private string password;
+        private MySqlConnection connection;
 
         public DbHelper()
         {
@@ -20,26 +24,28 @@ namespace WinFormsApp1.Helpers
 
         private void initialize()
         {
-            server = "studmysql01.fhict.local";
-            database = "dbi485050";
-            uid = "dbi485050";
-            password = "Vredeoord123";
+            server = "192.168.176.101";
+            database = "yassir";
+            uid = "student";
+            password = "student";
 
-            string connString = "SERVER=" + server + ";" + "DATABASE=" +
-            database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";
+            string connString = "user id=root;host=localhost;database=test";
+            /*"SERVER=" + server + ";" + "DATABASE=" +
+                        database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";*/
 
-            MySqlConnection connection = new MySqlConnection(connString);
+            connection = new MySqlConnection(connString);
         }
 
         public void Insert()
         {
-            string query = "INSERT INTO users(UID, username, password) VALUES (0, yassirhabek, vredeoord123)";
+            string query = "INSERT INTO users(UID, Username, Password) VALUES(1, yassirhabek, vredeoord123)";
 
             if (this.openConnection())
             {
                 MySqlCommand cmd = new MySqlCommand(query, connection);
 
                 cmd.ExecuteNonQuery();
+                MessageBox.Show("succesvol ingevoerd");
                 this.closeConnection();
             }
             else
@@ -71,11 +77,11 @@ namespace WinFormsApp1.Helpers
                 switch (ex.Number)
                 {
                     case 0:
-                        MessageBox.Show("Cannot connect to server.  Contact administrator");
+                        MessageBox.Show("kan geen verbinding maken met server. neem contact op met administrator");
                         break;
 
                     case 1045:
-                        MessageBox.Show("Invalid username/password, please try again");
+                        MessageBox.Show("ongeldig username/password");
                         break;
                 }
                 return false;

@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WinFormsApp1.Helpers;
+using WinFormsApp1.Forms;
 
 namespace WinFormsApp1
 {
@@ -24,6 +25,9 @@ namespace WinFormsApp1
         private void button1_Click(object sender, EventArgs e)
         {
             helper.Insert();
+
+            /*WerknemerToevoegen werknemerToevoegen = new WerknemerToevoegen();
+            werknemerToevoegen.Show();*/
         }
     }
 }
