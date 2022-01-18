@@ -6,16 +6,14 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using WinFormsApp1.Models;
 
 namespace WinFormsApp1.Helpers
 {
     public class DbHelper
     {
-        private string server;
-        private string database;
-        private string uid;
-        private string password;
         private MySqlConnection connection;
+        private readonly string connString = "user id=root;host=localhost;database=test";
 
         public DbHelper()
         {
@@ -24,45 +22,66 @@ namespace WinFormsApp1.Helpers
 
         private void initialize()
         {
-            server = "192.168.176.101";
-            database = "yassir";
-            uid = "student";
-            password = "student";
-
-            string connString = "user id=root;host=localhost;database=test";
-            /*"SERVER=" + server + ";" + "DATABASE=" +
-                        database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";*/
-
             connection = new MySqlConnection(connString);
         }
 
-        public void Insert()
+        public void nieuwWerknemerToevoegen(Werknemer werknemerNieuw)
         {
-            string query = "INSERT INTO users(UID, Username, Password) VALUES(1, yassirhabek, vredeoord123)";
+            string query = "INSERT INTO werknemers(WerknemerID, Naam, aantal_uur) VALUES(@id, @naam, @anu)";
 
             if (this.openConnection())
             {
                 MySqlCommand cmd = new MySqlCommand(query, connection);
 
+                cmd.Parameters.Add("@id", MySqlDbType.Int32).Value = werknemerNieuw.WerknemerID;
+                cmd.Parameters.Add("@naam", MySqlDbType.Text).Value = werknemerNieuw.Naam;
+                cmd.Parameters.Add("@anu", MySqlDbType.Float).Value = werknemerNieuw.AantalUren;
+
+
                 cmd.ExecuteNonQuery();
-                MessageBox.Show("succesvol ingevoerd");
+                MessageBox.Show("succesvol Werknemer Toegevoegd!");
                 this.closeConnection();
             }
             else
             {
-                MessageBox.Show("er is iets verkankerd, ik weet ook niet wat");
+                MessageBox.Show("Werknemer Toevoegen gefaald! Neem contact op met de administrator.");
             }
         }
 
-        public void Delete()
+        public IEnumerable<Werknemer> GetAllWerknemers()
         {
+            List<Werknemer> output = new List<Werknemer>();
+            if (this.openConnection())
+            {
+                try
+                {
+                    string query = "SELECT * FROM werknemers";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    MySqlDataReader rdr = cmd.ExecuteReader();
 
+                    while (rdr.Read())
+                    {
+                        output.Add(new Werknemer()
+                        {
+                            WerknemerID = Convert.ToInt32(rdr[0]),
+                            Naam = Convert.ToString(rdr[1]),
+                            AantalUren = Convert.ToInt32(rdr[2]),
+                        });
+                    }
+                    rdr.Close();
+                }
+
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+            }
+
+            this.closeConnection();
+            return output;
         }
 
-        public void Update()
-        {
 
-        }
 
         #region connections
         private bool openConnection()

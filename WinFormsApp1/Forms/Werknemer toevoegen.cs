@@ -5,11 +5,14 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using WinFormsApp1.Helpers;
+using WinFormsApp1.Models;
 
 namespace WinFormsApp1.Forms
 {
     public partial class WerknemerToevoegen : Form
     {
+        DbHelper helper = new DbHelper();
         public int WerknemerNummer { get; set; }
         public string Naam { get; set; }
         
@@ -45,8 +48,30 @@ namespace WinFormsApp1.Forms
             {
                 if (textBox2 != null)
                 {
+                    int werknemerID;
+
+                    if (int.TryParse(textBox1.Text, out werknemerID))
+                    {
+                        string werknemerNaam = textBox2.Text.ToString();
+
+                        Werknemer werknemerNieuw = new Werknemer(werknemerID, werknemerNaam);
+
+                        helper.nieuwWerknemerToevoegen(werknemerNieuw);
+                    }
+                    else
+                    {
+                        //parsing failed. 
+                    }
                     
                 }
+                else
+                {
+                    MessageBox.Show("Werknemer naam niet ingevuld!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Werknemer ID niet ingevuld!");
             }
         }
     }

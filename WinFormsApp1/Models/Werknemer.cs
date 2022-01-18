@@ -6,8 +6,20 @@ namespace WinFormsApp1.Models
 {
     public class Werknemer
     {
-        public int WerknemerNummer { get; set; }
+        public int WerknemerID { get; set; }
         public string Naam { get; set; }
-        public double AantalUren { get; set; }
+        public float AantalUren { get; set; }
+
+        public Werknemer()
+        {
+
+        }
+
+        public Werknemer(int werknemerID, string naam)
+        {
+            WerknemerID = werknemerID;
+            Naam = naam;
+            AantalUren = 0;
+        }
     }
 }
