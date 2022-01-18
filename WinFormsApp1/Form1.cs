@@ -29,8 +29,12 @@ namespace WinFormsApp1
         private void button2_Click(object sender, EventArgs e)
         {
             List<Werknemer> lijstWerknemers = new List<Werknemer>();
-            lijstWerknemers.Add(helper.GetAllWerknemers());
-            label2.Text = 
+            lijstWerknemers = helper.GetAllWerknemers();
+
+            foreach (Werknemer werknemer in lijstWerknemers)
+            {
+                label2.Text = Convert.ToString(werknemer);
+            }
         }
     }
 }

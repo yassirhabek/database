@@ -37,9 +37,8 @@ namespace WinFormsApp1.Helpers
                 cmd.Parameters.Add("@naam", MySqlDbType.Text).Value = werknemerNieuw.Naam;
                 cmd.Parameters.Add("@anu", MySqlDbType.Float).Value = werknemerNieuw.AantalUren;
 
-
                 cmd.ExecuteNonQuery();
-                MessageBox.Show("succesvol Werknemer Toegevoegd!");
+                MessageBox.Show("Succesvol Werknemer Toegevoegd!");
                 this.closeConnection();
             }
             else
@@ -48,7 +47,7 @@ namespace WinFormsApp1.Helpers
             }
         }
 
-        public IEnumerable<Werknemer> GetAllWerknemers()
+        public List<Werknemer> GetAllWerknemers()
         {
             List<Werknemer> output = new List<Werknemer>();
             if (this.openConnection())
@@ -65,12 +64,11 @@ namespace WinFormsApp1.Helpers
                         {
                             WerknemerID = Convert.ToInt32(rdr[0]),
                             Naam = Convert.ToString(rdr[1]),
-                            AantalUren = Convert.ToInt32(rdr[2]),
+                            AantalUren = Convert.ToDouble(rdr[2]),
                         });
                     }
                     rdr.Close();
                 }
-
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.ToString());
@@ -80,7 +78,6 @@ namespace WinFormsApp1.Helpers
             this.closeConnection();
             return output;
         }
-
 
 
         #region connections

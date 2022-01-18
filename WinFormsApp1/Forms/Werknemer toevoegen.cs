@@ -60,7 +60,7 @@ namespace WinFormsApp1.Forms
                     }
                     else
                     {
-                        //parsing failed. 
+                        MessageBox.Show("Geen geldig nummer ingevoerd!");
                     }
                     
                 }

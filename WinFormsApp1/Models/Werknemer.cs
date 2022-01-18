@@ -8,7 +8,7 @@ namespace WinFormsApp1.Models
     {
         public int WerknemerID { get; set; }
         public string Naam { get; set; }
-        public float AantalUren { get; set; }
+        public double AantalUren { get; set; }
 
         public Werknemer()
         {
