@@ -79,6 +79,25 @@ namespace WinFormsApp1.Helpers
             return output;
         }
 
+        public List<string> ItemsToComboBox(ComboBox comboBox)
+        {
+            var itemList = new List<string>();
+
+            string query = "SELECT * FROM werknemers";
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+            MySqlDataReader sqlReader = cmd.ExecuteReader();
+            while (sqlReader.Read())
+            {
+
+                string name = sqlReader.GetString(0);
+                comboBox.Items.Add(name);
+                itemList.Add(name);
+            }
+            sqlReader.Close();
+            this.closeConnection();
+        }
+    }
+
 
         #region connections
         private bool openConnection()

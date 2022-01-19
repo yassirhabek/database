@@ -11,30 +11,67 @@ using WinFormsApp1.Forms;
 
 namespace WinFormsApp1
 {
-    public partial class Form1 : Form
+    public partial class PanelSideMenu : Form
     {
         DbHelper helper = new DbHelper();
 
-        public Form1()
+        public PanelSideMenu()
         {
             InitializeComponent();
+            changeSubmenuView();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void werknemersToevoegenBtn_Click(object sender, EventArgs e)
         {
-            WerknemerToevoegen werknemerToevoegen = new WerknemerToevoegen();
-            werknemerToevoegen.Show();
+            showSubMenu(DropdownPanel);
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void WerknemerToevoegenbtn_Click(object sender, EventArgs e)
         {
-            List<Werknemer> lijstWerknemers = new List<Werknemer>();
-            lijstWerknemers = helper.GetAllWerknemers();
+            openChildForm(new WerknemerToevoegen());
+        }
 
-            foreach (Werknemer werknemer in lijstWerknemers)
+        private void WerknemerAanpassenbtn_Click(object sender, EventArgs e)
+        {
+            openChildForm(new WerknemerAanpassen());
+        }
+
+        private void changeSubmenuView()
+        {
+            DropdownPanel.Visible = false;
+        }
+
+        private void hideSubMenu()
+        {
+            if (DropdownPanel.Visible == true)
+                DropdownPanel.Visible = false;
+        }
+
+        private void showSubMenu(Panel subMenu)
+        {
+            if (subMenu.Visible == false)
             {
-                label2.Text = Convert.ToString(werknemer);
+                hideSubMenu();
+                subMenu.Visible = true;
             }
+            else
+                subMenu.Visible = false;
+        }
+
+        private Form activeForm = null;
+        private void openChildForm(Form childForm)
+        {
+            if (activeForm != null)
+                activeForm.Close();
+
+            activeForm = childForm;
+            childForm.TopLevel = false;
+            childForm.FormBorderStyle = FormBorderStyle.None;
+            childForm.Dock = DockStyle.Fill;
+            childPanel.Controls.Add(childForm);
+            childPanel.Tag = childForm;
+            childForm.BringToFront();
+            childForm.Show();
         }
     }
 }

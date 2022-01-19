@@ -20,6 +20,13 @@ namespace WinFormsApp1.Forms
         public WerknemerToevoegen()
         {
             InitializeComponent();
+            List<Werknemer> lijstWerknemers = new List<Werknemer>();
+            lijstWerknemers = helper.GetAllWerknemers(); 
+
+            for (int i = 0; i < lijstWerknemers.Count; i++)
+            {
+                listBox1.Items.Add(lijstWerknemers[i].Naam);
+            }
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -73,6 +80,16 @@ namespace WinFormsApp1.Forms
             {
                 MessageBox.Show("Werknemer ID niet ingevuld!");
             }
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
