@@ -36,6 +36,9 @@ namespace WinFormsApp1
             openChildForm(new WerknemerAanpassen());
         }
 
+
+
+        #region Change view
         private void changeSubmenuView()
         {
             DropdownPanel.Visible = false;
@@ -73,5 +76,6 @@ namespace WinFormsApp1
             childForm.BringToFront();
             childForm.Show();
         }
+        #endregion
     }
 }

@@ -63,7 +63,7 @@ namespace WinFormsApp1.Forms
 
                         Werknemer werknemerNieuw = new Werknemer(werknemerID, werknemerNaam);
 
-                        helper.nieuwWerknemerToevoegen(werknemerNieuw);
+                        helper.AddNewWerknemer(werknemerNieuw);
                     }
                     else
                     {

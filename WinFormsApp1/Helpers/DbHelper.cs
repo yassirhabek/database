@@ -25,7 +25,7 @@ namespace WinFormsApp1.Helpers
             connection = new MySqlConnection(connString);
         }
 
-        public void nieuwWerknemerToevoegen(Werknemer werknemerNieuw)
+        public void AddNewWerknemer(Werknemer werknemerNieuw)
         {
             string query = "INSERT INTO werknemers(WerknemerID, Naam, aantal_uur) VALUES(@id, @naam, @anu)";
 
@@ -45,6 +45,17 @@ namespace WinFormsApp1.Helpers
             {
                 MessageBox.Show("Werknemer Toevoegen gefaald! Neem contact op met de administrator.");
             }
+        }
+
+        public void ChangeWerknemerData()
+        {
+            string query = "UPDATE werknemers SET Naam = @naam, WerknemerID = @id WHERE Naam = @snaam";
+
+            if (this.openConnection())
+            {
+
+            }
+
         }
 
         public List<Werknemer> GetAllWerknemers()
@@ -78,26 +89,6 @@ namespace WinFormsApp1.Helpers
             this.closeConnection();
             return output;
         }
-
-        public List<string> ItemsToComboBox(ComboBox comboBox)
-        {
-            var itemList = new List<string>();
-
-            string query = "SELECT * FROM werknemers";
-            MySqlCommand cmd = new MySqlCommand(query, connection);
-            MySqlDataReader sqlReader = cmd.ExecuteReader();
-            while (sqlReader.Read())
-            {
-
-                string name = sqlReader.GetString(0);
-                comboBox.Items.Add(name);
-                itemList.Add(name);
-            }
-            sqlReader.Close();
-            this.closeConnection();
-        }
-    }
-
 
         #region connections
         private bool openConnection()
