@@ -11,11 +11,10 @@ using WinFormsApp1.Models;
 
 namespace WinFormsApp1.Forms
 {
-    public partial class WerknemerAanpassen : Form
+    public partial class WerknemerVerwijderen : Form
     {
         DbHelper helper = new DbHelper();
-
-        public WerknemerAanpassen()
+        public WerknemerVerwijderen()
         {
             InitializeComponent();
             List<Werknemer> lijstWerknemers = new List<Werknemer>();
@@ -30,27 +29,23 @@ namespace WinFormsApp1.Forms
 
         }
 
-        private void WerknemerVerwijderen_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            string selected = comboBoxToString(comboBox1);
-            string newID = textBox2.Text.ToString();
-            string newNaam = textBox1.Text.ToString();
-
-            helper.ChangeWerknemerData(newNaam, newID, selected);
-            this.Refresh();
-        }
-
         private string comboBoxToString(ComboBox comboBox)
         {
             string selected = comboBox.GetItemText(comboBox.SelectedItem);
             return selected;
         }
 
-
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (comboBox1 != null)
+            {
+                string naam = comboBoxToString(comboBox1);
+                helper.DeleteWerknemer(naam);
+            }
+            else
+            {
+                MessageBox.Show("Geen Werknemer gekozen! Kies een Werknemer");
+            }
+        }
     }
 }

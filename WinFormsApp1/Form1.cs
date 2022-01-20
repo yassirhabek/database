@@ -36,7 +36,10 @@ namespace WinFormsApp1
             openChildForm(new WerknemerAanpassen());
         }
 
-
+        private void WerknemerVerwijderenbtn_Click(object sender, EventArgs e)
+        {
+            openChildForm(new WerknemerVerwijderen());
+        }
 
         #region Change view
         private void changeSubmenuView()
@@ -76,6 +79,12 @@ namespace WinFormsApp1
             childForm.BringToFront();
             childForm.Show();
         }
+
         #endregion
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

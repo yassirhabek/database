@@ -37,8 +37,15 @@ namespace WinFormsApp1.Helpers
                 cmd.Parameters.Add("@naam", MySqlDbType.Text).Value = werknemerNieuw.Naam;
                 cmd.Parameters.Add("@anu", MySqlDbType.Float).Value = werknemerNieuw.AantalUren;
 
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("Succesvol Werknemer Toegevoegd!");
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Succesvol Werknemer Toegevoegd!");
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show(Convert.ToString(ex));
+                }
                 this.closeConnection();
             }
             else
@@ -47,13 +54,59 @@ namespace WinFormsApp1.Helpers
             }
         }
 
-        public void ChangeWerknemerData()
+        public void ChangeWerknemerData(string newNaam, string NewID, string searchNaam)
         {
             string query = "UPDATE werknemers SET Naam = @naam, WerknemerID = @id WHERE Naam = @snaam";
 
             if (this.openConnection())
             {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
 
+                cmd.Parameters.Add("@naam", MySqlDbType.Text).Value = newNaam;
+                cmd.Parameters.Add("@id", MySqlDbType.Int32).Value = NewID;
+                cmd.Parameters.Add("@snaam", MySqlDbType.Text).Value = searchNaam;
+
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Succesvol Aangepast!");
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show(Convert.ToString(ex));
+                }
+                this.closeConnection();
+            }
+            else
+            {
+                MessageBox.Show("Werknemer Aanpassen gefaald! Neem contact op met de administrator.");
+            }
+
+        }
+
+        public void DeleteWerknemer(string naam)
+        {
+            string query = "DELETE FROM werknemers WHERE Naam = @naam";
+
+            if (this.openConnection())
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+
+                cmd.Parameters.Add("@naam", MySqlDbType.Text).Value = naam;
+
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Succesvol Verwijderd");
+                }
+                catch(MySqlException ex)
+                {
+                    MessageBox.Show(Convert.ToString(ex));
+                }
+            }
+            else
+            {
+                MessageBox.Show("Werknemer verwijderen gefaald! Neem contact op met de administrator.");
             }
 
         }

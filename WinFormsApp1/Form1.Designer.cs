@@ -38,6 +38,7 @@ namespace WinFormsApp1
             this.panelLogo = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.childPanel = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.DropdownPanel.SuspendLayout();
             this.panelLogo.SuspendLayout();
@@ -47,6 +48,7 @@ namespace WinFormsApp1
             // 
             this.panel1.AutoScroll = true;
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(129)))), ((int)(((byte)(249)))));
+            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.DropdownPanel);
             this.panel1.Controls.Add(this.werknemersBtn);
             this.panel1.Controls.Add(this.panelLogo);
@@ -82,6 +84,7 @@ namespace WinFormsApp1
             this.WerknemerVerwijderenbtn.Text = "Werknemer Verwijderen";
             this.WerknemerVerwijderenbtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.WerknemerVerwijderenbtn.UseVisualStyleBackColor = false;
+            this.WerknemerVerwijderenbtn.Click += new System.EventHandler(this.WerknemerVerwijderenbtn_Click);
             // 
             // WerknemerAanpassenbtn
             // 
@@ -162,6 +165,23 @@ namespace WinFormsApp1
             this.childPanel.Size = new System.Drawing.Size(906, 621);
             this.childPanel.TabIndex = 4;
             // 
+            // button1
+            // 
+            this.button1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(37)))), ((int)(((byte)(74)))));
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.button1.Location = new System.Drawing.Point(0, 260);
+            this.button1.Name = "button1";
+            this.button1.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.button1.Size = new System.Drawing.Size(250, 50);
+            this.button1.TabIndex = 9;
+            this.button1.Text = "Routes";
+            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // PanelSideMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -194,6 +214,7 @@ namespace WinFormsApp1
         private System.Windows.Forms.Button WerknemerVerwijderenbtn;
         private System.Windows.Forms.Button WerknemerAanpassenbtn;
         private System.Windows.Forms.Button WerknemerToevoegenbtn;
+        private System.Windows.Forms.Button button1;
     }
 }
 
