@@ -41,6 +41,27 @@ namespace WinFormsApp1
             openChildForm(new WerknemerVerwijderen());
         }
 
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            showSubMenu(panel2);
+        }
+
+        private void RouteToevoegen_Click(object sender, EventArgs e)
+        {
+            openChildForm(new RouteToevoegen());
+        }
+
+        private void RouteAanpassen_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
         #region Change view
         private void changeSubmenuView()
         {
@@ -80,11 +101,8 @@ namespace WinFormsApp1
             childForm.Show();
         }
 
+
         #endregion
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

@@ -30,6 +30,11 @@ namespace WinFormsApp1
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.RouteVerwijderen = new System.Windows.Forms.Button();
+            this.RouteAanpassen = new System.Windows.Forms.Button();
+            this.RouteToevoegen = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.DropdownPanel = new System.Windows.Forms.Panel();
             this.WerknemerVerwijderenbtn = new System.Windows.Forms.Button();
             this.WerknemerAanpassenbtn = new System.Windows.Forms.Button();
@@ -38,8 +43,8 @@ namespace WinFormsApp1
             this.panelLogo = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.childPanel = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.DropdownPanel.SuspendLayout();
             this.panelLogo.SuspendLayout();
             this.SuspendLayout();
@@ -48,6 +53,7 @@ namespace WinFormsApp1
             // 
             this.panel1.AutoScroll = true;
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(129)))), ((int)(((byte)(249)))));
+            this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.DropdownPanel);
             this.panel1.Controls.Add(this.werknemersBtn);
@@ -57,6 +63,86 @@ namespace WinFormsApp1
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(250, 621);
             this.panel1.TabIndex = 3;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.RouteVerwijderen);
+            this.panel2.Controls.Add(this.RouteAanpassen);
+            this.panel2.Controls.Add(this.RouteToevoegen);
+            this.panel2.Cursor = System.Windows.Forms.Cursors.Default;
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 310);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(250, 125);
+            this.panel2.TabIndex = 10;
+            // 
+            // RouteVerwijderen
+            // 
+            this.RouteVerwijderen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(37)))), ((int)(((byte)(74)))));
+            this.RouteVerwijderen.Dock = System.Windows.Forms.DockStyle.Top;
+            this.RouteVerwijderen.FlatAppearance.BorderSize = 0;
+            this.RouteVerwijderen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RouteVerwijderen.ForeColor = System.Drawing.Color.White;
+            this.RouteVerwijderen.Location = new System.Drawing.Point(0, 82);
+            this.RouteVerwijderen.Name = "RouteVerwijderen";
+            this.RouteVerwijderen.Padding = new System.Windows.Forms.Padding(40, 0, 0, 0);
+            this.RouteVerwijderen.Size = new System.Drawing.Size(250, 41);
+            this.RouteVerwijderen.TabIndex = 3;
+            this.RouteVerwijderen.Text = "Route Verwijderen\r\n";
+            this.RouteVerwijderen.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.RouteVerwijderen.UseVisualStyleBackColor = false;
+            this.RouteVerwijderen.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // RouteAanpassen
+            // 
+            this.RouteAanpassen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(37)))), ((int)(((byte)(74)))));
+            this.RouteAanpassen.Dock = System.Windows.Forms.DockStyle.Top;
+            this.RouteAanpassen.FlatAppearance.BorderSize = 0;
+            this.RouteAanpassen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RouteAanpassen.ForeColor = System.Drawing.Color.White;
+            this.RouteAanpassen.Location = new System.Drawing.Point(0, 41);
+            this.RouteAanpassen.Name = "RouteAanpassen";
+            this.RouteAanpassen.Padding = new System.Windows.Forms.Padding(40, 0, 0, 0);
+            this.RouteAanpassen.Size = new System.Drawing.Size(250, 41);
+            this.RouteAanpassen.TabIndex = 2;
+            this.RouteAanpassen.Text = "Route Aanpassen";
+            this.RouteAanpassen.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.RouteAanpassen.UseVisualStyleBackColor = false;
+            this.RouteAanpassen.Click += new System.EventHandler(this.RouteAanpassen_Click);
+            // 
+            // RouteToevoegen
+            // 
+            this.RouteToevoegen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(37)))), ((int)(((byte)(74)))));
+            this.RouteToevoegen.Dock = System.Windows.Forms.DockStyle.Top;
+            this.RouteToevoegen.FlatAppearance.BorderSize = 0;
+            this.RouteToevoegen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RouteToevoegen.ForeColor = System.Drawing.Color.White;
+            this.RouteToevoegen.Location = new System.Drawing.Point(0, 0);
+            this.RouteToevoegen.Name = "RouteToevoegen";
+            this.RouteToevoegen.Padding = new System.Windows.Forms.Padding(40, 0, 0, 0);
+            this.RouteToevoegen.Size = new System.Drawing.Size(250, 41);
+            this.RouteToevoegen.TabIndex = 1;
+            this.RouteToevoegen.Text = "Route Toevoegen";
+            this.RouteToevoegen.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.RouteToevoegen.UseVisualStyleBackColor = false;
+            this.RouteToevoegen.Click += new System.EventHandler(this.RouteToevoegen_Click);
+            // 
+            // button1
+            // 
+            this.button1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(37)))), ((int)(((byte)(74)))));
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.button1.Location = new System.Drawing.Point(0, 260);
+            this.button1.Name = "button1";
+            this.button1.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.button1.Size = new System.Drawing.Size(250, 50);
+            this.button1.TabIndex = 9;
+            this.button1.Text = "Route";
+            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // DropdownPanel
             // 
@@ -165,23 +251,6 @@ namespace WinFormsApp1
             this.childPanel.Size = new System.Drawing.Size(906, 621);
             this.childPanel.TabIndex = 4;
             // 
-            // button1
-            // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(37)))), ((int)(((byte)(74)))));
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button1.Location = new System.Drawing.Point(0, 260);
-            this.button1.Name = "button1";
-            this.button1.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.button1.Size = new System.Drawing.Size(250, 50);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "Routes";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // PanelSideMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -197,6 +266,7 @@ namespace WinFormsApp1
             this.Name = "PanelSideMenu";
             this.Text = "Form1";
             this.panel1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
             this.DropdownPanel.ResumeLayout(false);
             this.panelLogo.ResumeLayout(false);
             this.panelLogo.PerformLayout();
@@ -214,6 +284,10 @@ namespace WinFormsApp1
         private System.Windows.Forms.Button WerknemerVerwijderenbtn;
         private System.Windows.Forms.Button WerknemerAanpassenbtn;
         private System.Windows.Forms.Button WerknemerToevoegenbtn;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button RouteVerwijderen;
+        private System.Windows.Forms.Button RouteAanpassen;
+        private System.Windows.Forms.Button RouteToevoegen;
         private System.Windows.Forms.Button button1;
     }
 }

@@ -11,7 +11,7 @@ using WinFormsApp1.Models;
 namespace WinFormsApp1.Helpers
 {
     public class DbHelper
-    {
+    { 
         private MySqlConnection connection;
         private readonly string connString = "user id=root;host=localhost;database=test";
 
@@ -108,6 +108,7 @@ namespace WinFormsApp1.Helpers
             {
                 MessageBox.Show("Werknemer verwijderen gefaald! Neem contact op met de administrator.");
             }
+            closeConnection();
 
         }
 
