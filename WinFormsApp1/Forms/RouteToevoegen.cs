@@ -14,12 +14,12 @@ namespace WinFormsApp1.Forms
     public partial class RouteToevoegen : Form
     {
         DbHelper helper = new DbHelper();
+        List<Werknemer> lijstWerknemers = new List<Werknemer>();
 
         public RouteToevoegen()
         {
             InitializeComponent();
 
-            List<Werknemer> lijstWerknemers = new List<Werknemer>();
             lijstWerknemers = helper.GetAllWerknemers();
             string[] werknemers = lijstWerknemers.Select(x => x.Naam).ToArray();
 
@@ -30,9 +30,32 @@ namespace WinFormsApp1.Forms
         private void button1_Click(object sender, EventArgs e)
         {
             int routeNummer = Convert.ToInt32(textBox1.Text.ToString());
-            string chauffeur = comboBox1.Text.ToString();
-            string bijrijder = comboBox2.Text.ToString();
+            DateTime datum = Convert.ToDateTime(monthCalendar1.SelectionEnd.ToString());
+
+            string rawChauffeur = comboBox1.Text.ToString();
+            Werknemer chauffeur = lijstWerknemers.FirstOrDefault(w => w.Naam == rawChauffeur);
+            string rawBijrijder = comboBox2.Text.ToString();
+            Werknemer bijrijder = lijstWerknemers.FirstOrDefault(w => w.Naam == rawBijrijder);
+
+            string rawStartTijd = textBox2.Text.ToString();
+            DateTime startTijd = DateTime.Parse(rawStartTijd);
+
+            string rawEindTijd = textBox3.Text.ToString();
+            DateTime eindTijd = DateTime.Parse(rawEindTijd);
+
+            string bijzonderheden = richTextBox1.Text.ToString();
             
+            if(bijzonderheden != null)
+            {
+                Route newRoute = new Route(routeNummer, datum, chauffeur, bijrijder, startTijd, eindTijd, bijzonderheden);
+                helper.AddRoute(newRoute);
+            }
+            else
+            {
+                Route newRoute = new Route(routeNummer, datum, chauffeur, bijrijder, startTijd, eindTijd);
+                helper.AddRoute(newRoute);
+            }
+
         }        
         
         private string comboBoxToString(ComboBox comboBox)

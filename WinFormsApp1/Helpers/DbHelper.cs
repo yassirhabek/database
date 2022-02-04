@@ -45,7 +45,7 @@ namespace WinFormsApp1.Helpers
                 }
                 catch (MySqlException ex)
                 {
-                    MessageBox.Show(Convert.ToString(ex));
+                    MessageBox.Show(ex.ToString());
                 }
                 this.closeConnection();
             }
@@ -74,7 +74,7 @@ namespace WinFormsApp1.Helpers
                 }
                 catch (MySqlException ex)
                 {
-                    MessageBox.Show(Convert.ToString(ex));
+                    MessageBox.Show(ex.ToString());
                 }
                 this.closeConnection();
             }
@@ -102,7 +102,7 @@ namespace WinFormsApp1.Helpers
                 }
                 catch(MySqlException ex)
                 {
-                    MessageBox.Show(Convert.ToString(ex));
+                    MessageBox.Show(ex.ToString());
                 }
             }
             else
@@ -149,8 +149,8 @@ namespace WinFormsApp1.Helpers
         #region Route
         public void AddRoute(Route newRoute)
         {
-            string query = "INSERT INTO route (RouteNummer, Datum, Chauffeur, Bijrijder, Starttijd, Eindtijd, Bijzonderheden, DatumToegevoed) " +
-                        "VALUES ('@route', '@date', '@chauf', '@bijr', '@stijd', '@etijd', '@bijz', current_timestamp());";
+            string query = "INSERT INTO route (RouteNummer, Datum, Chauffeur, Bijrijder, Starttijd, Eindtijd, AantalUur, Bijzonderheden, DatumToegevoed) " +
+                        "VALUES (@route, @date, @chauf, @bijr, @stijd, @etijd, @aanu, @bijz, @curdate";
 
             if (this.openConnection())
             {
@@ -162,7 +162,9 @@ namespace WinFormsApp1.Helpers
                 cmd.Parameters.Add("@bijr", MySqlDbType.Text).Value = newRoute.BijRijder;
                 cmd.Parameters.Add("@stijd", MySqlDbType.Text).Value = newRoute.StartTijd;
                 cmd.Parameters.Add("@etijd", MySqlDbType.Text).Value = newRoute.EindTijd;
+                cmd.Parameters.Add("@aanu", MySqlDbType.Time).Value = newRoute.AantalUur;
                 cmd.Parameters.Add("@bijz", MySqlDbType.Text).Value = newRoute.Bijzonderheden;
+                cmd.Parameters.Add("@curdate", MySqlDbType.Text).Value = DateTime.Now;
 
                 try
                 {
@@ -171,7 +173,7 @@ namespace WinFormsApp1.Helpers
                 }
                 catch(MySqlException ex)
                 {
-                    MessageBox.Show(Convert.ToString(ex));
+                    MessageBox.Show(ex.ToString());
                 }
             }
 
