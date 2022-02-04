@@ -66,12 +66,15 @@ namespace WinFormsApp1
         private void changeSubmenuView()
         {
             DropdownPanel.Visible = false;
+            panel2.Visible = false;
         }
 
         private void hideSubMenu()
         {
             if (DropdownPanel.Visible == true)
                 DropdownPanel.Visible = false;
+            if (panel2.Visible == true)
+                panel2.Visible = false;
         }
 
         private void showSubMenu(Panel subMenu)

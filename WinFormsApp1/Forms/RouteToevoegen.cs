@@ -25,6 +25,20 @@ namespace WinFormsApp1.Forms
 
             comboBox1.Items.AddRange(werknemers);
             comboBox2.Items.AddRange(werknemers);
+        }       
+        
+        private void button1_Click(object sender, EventArgs e)
+        {
+            int routeNummer = Convert.ToInt32(textBox1.Text.ToString());
+            string chauffeur = comboBox1.Text.ToString();
+            string bijrijder = comboBox2.Text.ToString();
+            
+        }        
+        
+        private string comboBoxToString(ComboBox comboBox)
+        {
+            string selected = comboBox.GetItemText(comboBox.SelectedItem);
+            return selected;
         }
 
         private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
@@ -47,10 +61,13 @@ namespace WinFormsApp1.Forms
 
         }
 
-        private string comboBoxToString(ComboBox comboBox)
+
+
+        private void Toevoegen(object sender, EventArgs e)
         {
-            string selected = comboBox.GetItemText(comboBox.SelectedItem);
-            return selected;
+
         }
+
+
     }
 }

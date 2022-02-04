@@ -25,6 +25,7 @@ namespace WinFormsApp1.Helpers
             connection = new MySqlConnection(connString);
         }
 
+        #region Werknemer
         public void AddNewWerknemer(Werknemer werknemerNieuw)
         {
             string query = "INSERT INTO werknemers(WerknemerID, Naam, aantal_uur) VALUES(@id, @naam, @anu)";
@@ -143,6 +144,45 @@ namespace WinFormsApp1.Helpers
             this.closeConnection();
             return output;
         }
+        #endregion
+
+        #region Route
+        public void AddRoute(Route newRoute)
+        {
+            string query = "INSERT INTO route (RouteNummer, Datum, Chauffeur, Bijrijder, Starttijd, Eindtijd, Bijzonderheden, DatumToegevoed) " +
+                        "VALUES ('@route', '@date', '@chauf', '@bijr', '@stijd', '@etijd', '@bijz', current_timestamp());";
+
+            if (this.openConnection())
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+
+                cmd.Parameters.Add("@route", MySqlDbType.Int32).Value = newRoute.RouteNummer;
+                cmd.Parameters.Add("@date", MySqlDbType.DateTime).Value = newRoute.Datum;
+                cmd.Parameters.Add("@chauf", MySqlDbType.Text).Value = newRoute.Chauffeur;
+                cmd.Parameters.Add("@bijr", MySqlDbType.Text).Value = newRoute.BijRijder;
+                cmd.Parameters.Add("@stijd", MySqlDbType.Text).Value = newRoute.StartTijd;
+                cmd.Parameters.Add("@etijd", MySqlDbType.Text).Value = newRoute.EindTijd;
+                cmd.Parameters.Add("@bijz", MySqlDbType.Text).Value = newRoute.Bijzonderheden;
+
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Route succesvol toegevoegd!");
+                }
+                catch(MySqlException ex)
+                {
+                    MessageBox.Show(Convert.ToString(ex));
+                }
+            }
+
+            this.closeConnection();
+
+        }
+
+        #endregion
+
+
+      
 
         #region connections
         private bool openConnection()
