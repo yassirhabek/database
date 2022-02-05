@@ -130,7 +130,7 @@ namespace WinFormsApp1.Helpers
                         {
                             WerknemerID = Convert.ToInt32(rdr[0]),
                             Naam = Convert.ToString(rdr[1]),
-                            AantalUren = Convert.ToDouble(rdr[2]),
+                            AantalUren = Convert.ToDouble(rdr[2])
                         });
                     }
                     rdr.Close();
@@ -149,22 +149,22 @@ namespace WinFormsApp1.Helpers
         #region Route
         public void AddRoute(Route newRoute)
         {
-            string query = "INSERT INTO route (RouteNummer, Datum, Chauffeur, Bijrijder, Starttijd, Eindtijd, AantalUur, Bijzonderheden, DatumToegevoed) " +
-                        "VALUES (@route, @date, @chauf, @bijr, @stijd, @etijd, @aanu, @bijz, @curdate";
+            string query = "INSERT INTO route (RouteNummer, Datum, Chauffeur, Bijrijder, Starttijd, Eindtijd, AantalUur, Bijzonderheden, DatumToegevoegd) " +
+                        "VALUES (@route, @date, @chauf, @bijr, @stijd, @etijd, @aanu, @bijz, @curdate)";
 
             if (this.openConnection())
             {
                 MySqlCommand cmd = new MySqlCommand(query, connection);
 
                 cmd.Parameters.Add("@route", MySqlDbType.Int32).Value = newRoute.RouteNummer;
-                cmd.Parameters.Add("@date", MySqlDbType.DateTime).Value = newRoute.Datum;
-                cmd.Parameters.Add("@chauf", MySqlDbType.Text).Value = newRoute.Chauffeur;
-                cmd.Parameters.Add("@bijr", MySqlDbType.Text).Value = newRoute.BijRijder;
-                cmd.Parameters.Add("@stijd", MySqlDbType.Text).Value = newRoute.StartTijd;
-                cmd.Parameters.Add("@etijd", MySqlDbType.Text).Value = newRoute.EindTijd;
+                cmd.Parameters.Add("@date", MySqlDbType.Date).Value = newRoute.Datum;
+                cmd.Parameters.Add("@chauf", MySqlDbType.Text).Value = newRoute.Chauffeur.Naam;
+                cmd.Parameters.Add("@bijr", MySqlDbType.Text).Value = newRoute.BijRijder.Naam;
+                cmd.Parameters.Add("@stijd", MySqlDbType.Time).Value = newRoute.StartTijd;
+                cmd.Parameters.Add("@etijd", MySqlDbType.Time).Value = newRoute.EindTijd;
                 cmd.Parameters.Add("@aanu", MySqlDbType.Time).Value = newRoute.AantalUur;
                 cmd.Parameters.Add("@bijz", MySqlDbType.Text).Value = newRoute.Bijzonderheden;
-                cmd.Parameters.Add("@curdate", MySqlDbType.Text).Value = DateTime.Now;
+                cmd.Parameters.Add("@curdate", MySqlDbType.DateTime).Value = DateTime.Now;
 
                 try
                 {
@@ -181,10 +181,47 @@ namespace WinFormsApp1.Helpers
 
         }
 
+
+        public List<Route> GetRouteFromDate(string date, List<Werknemer> lijstWerknemers)
+        {
+            List<Route> output = new List<Route>();
+            if (this.openConnection())
+            {
+                string query = "SELECT * FROM route WHERE Datum=@datum";
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+
+                cmd.Parameters.Add("@datum", MySqlDbType.VarChar).Value = date;
+
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                try
+                {
+                    while (rdr.Read())
+                    {
+                        output.Add(new Route()
+                        {
+                            RouteNummer = Convert.ToInt32(rdr[0]),
+                            Datum = Convert.ToDateTime(rdr[1]),
+                            Chauffeur = lijstWerknemers.FirstOrDefault(w => w.Naam == rdr[2]),
+                            BijRijder = lijstWerknemers.FirstOrDefault(w => w.Naam == rdr[3]),
+                            StartTijd = TimeSpan.Parse(Convert.ToString(rdr[4])),
+                            EindTijd = TimeSpan.Parse(Convert.ToString(rdr[5])),
+                            AantalUur = TimeSpan.Parse(Convert.ToString(rdr[6])),
+                            Bijzonderheden = Convert.ToString(rdr[7])
+                        });
+                    }
+                    rdr.Close();
+                }
+                catch(MySqlException ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+            }
+            this.closeConnection();
+            return output;
+        }
+             
         #endregion
-
-
-      
 
         #region connections
         private bool openConnection()
@@ -227,3 +264,4 @@ namespace WinFormsApp1.Helpers
 
     }
 }
+

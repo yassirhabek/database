@@ -38,10 +38,10 @@ namespace WinFormsApp1.Forms
             Werknemer bijrijder = lijstWerknemers.FirstOrDefault(w => w.Naam == rawBijrijder);
 
             string rawStartTijd = textBox2.Text.ToString();
-            DateTime startTijd = DateTime.Parse(rawStartTijd);
+            TimeSpan startTijd = TimeSpan.Parse(rawStartTijd);
 
             string rawEindTijd = textBox3.Text.ToString();
-            DateTime eindTijd = DateTime.Parse(rawEindTijd);
+            TimeSpan eindTijd = TimeSpan.Parse(rawEindTijd);
 
             string bijzonderheden = richTextBox1.Text.ToString();
             
