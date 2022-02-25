@@ -14,11 +14,11 @@ namespace WinFormsApp1.Forms
     public partial class WerknemerAanpassen : Form
     {
         DbHelper helper = new DbHelper();
+        List<Werknemer> lijstWerknemers = new List<Werknemer>();
 
         public WerknemerAanpassen()
         {
             InitializeComponent();
-            List<Werknemer> lijstWerknemers = new List<Werknemer>();
             lijstWerknemers = helper.GetAllWerknemers();
             string[] werknemers = lijstWerknemers.Select(x => x.Naam).ToArray();
 
@@ -38,10 +38,13 @@ namespace WinFormsApp1.Forms
         private void button1_Click(object sender, EventArgs e)
         {
             string selected = comboBoxToString(comboBox1);
-            string newID = textBox2.Text.ToString();
-            string newNaam = textBox1.Text.ToString();
+            int newID = Convert.ToInt32(textBox1.Text);
+            string newNaam = textBox2.Text.ToString();
+            int newTel = Convert.ToInt32(textBox3.Text);
 
-            helper.ChangeWerknemerData(newNaam, newID, selected);
+            Werknemer changeWerknemer = new Werknemer(newID, newNaam, newTel);
+
+            helper.ChangeWerknemerData(changeWerknemer, selected);
             this.Refresh();
         }
 

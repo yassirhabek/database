@@ -51,43 +51,59 @@ namespace WinFormsApp1.Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (textBox1 != null)
-            {
-                if (textBox2 != null)
-                {
-                    int werknemerID;
-
-                    if (int.TryParse(textBox1.Text, out werknemerID))
-                    {
-                        string werknemerNaam = textBox2.Text.ToString();
-
-                        Werknemer werknemerNieuw = new Werknemer(werknemerID, werknemerNaam);
-
-                        helper.AddNewWerknemer(werknemerNieuw);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Geen geldig nummer ingevoerd!");
-                    }
-                    
-                }
-                else
-                {
-                    MessageBox.Show("Werknemer naam niet ingevuld!");
-                }
-            }
-            else
-            {
-                MessageBox.Show("Werknemer ID niet ingevuld!");
-            }
+            addWerknemerToDatabase();
         }
 
+        private void addWerknemerToDatabase()
+        {
+            if (textBox1 == null)
+            {
+                MessageBox.Show("Werknemer ID niet ingevuld!");
+                return;
+            }
+
+            if (textBox2 == null)
+            {
+                MessageBox.Show("Werknemer naam niet ingevuld!");
+                return;
+            }
+
+            if (textBox3 == null)
+            {
+                MessageBox.Show("Telefoonnummer niet ingevuld!");
+                return;
+            }
+
+            if (!int.TryParse(textBox1.Text, out int werknemerID))
+            {
+                MessageBox.Show("Geen geldig nummer ingevoerd!");
+                return;
+            }
+
+            if (!int.TryParse(textBox3.Text, out int telefoonNummer))
+            {
+                MessageBox.Show("Geen geldig telefoonnummer ingevoerd!");
+                return;
+            }
+
+            string werknemerNaam = textBox2.Text.ToString();
+
+            Werknemer werknemerNieuw = new Werknemer(werknemerID, werknemerNaam, telefoonNummer);
+
+            helper.AddNewWerknemer(werknemerNieuw);
+        }
+    
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             
         }
 
         private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
         {
 
         }

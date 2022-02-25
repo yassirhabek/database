@@ -28,7 +28,7 @@ namespace WinFormsApp1.Helpers
         #region Werknemer
         public void AddNewWerknemer(Werknemer werknemerNieuw)
         {
-            string query = "INSERT INTO werknemers(WerknemerID, Naam, aantal_uur) VALUES(@id, @naam, @anu)";
+            string query = "INSERT INTO werknemers(WerknemerID, Naam, Telefoonnummer) VALUES(@id, @naam, @tel)";
 
             if (this.openConnection())
             {
@@ -36,7 +36,7 @@ namespace WinFormsApp1.Helpers
 
                 cmd.Parameters.Add("@id", MySqlDbType.Int32).Value = werknemerNieuw.WerknemerID;
                 cmd.Parameters.Add("@naam", MySqlDbType.Text).Value = werknemerNieuw.Naam;
-                cmd.Parameters.Add("@anu", MySqlDbType.Float).Value = werknemerNieuw.AantalUren;
+                cmd.Parameters.Add("@tel", MySqlDbType.Int32).Value = werknemerNieuw.TelefoonNummer;
 
                 try
                 {
@@ -55,16 +55,17 @@ namespace WinFormsApp1.Helpers
             }
         }
 
-        public void ChangeWerknemerData(string newNaam, string NewID, string searchNaam)
+        public void ChangeWerknemerData(Werknemer changeWerknemer, string searchNaam)
         {
-            string query = "UPDATE werknemers SET Naam = @naam, WerknemerID = @id WHERE Naam = @snaam";
+            string query = "UPDATE werknemers SET Naam = @naam, WerknemerID = @id, Telefoonnummer = @tel WHERE Naam = @snaam";
 
             if (this.openConnection())
             {
                 MySqlCommand cmd = new MySqlCommand(query, connection);
 
-                cmd.Parameters.Add("@naam", MySqlDbType.Text).Value = newNaam;
-                cmd.Parameters.Add("@id", MySqlDbType.Int32).Value = NewID;
+                cmd.Parameters.Add("@naam", MySqlDbType.Text).Value = changeWerknemer.Naam;
+                cmd.Parameters.Add("@id", MySqlDbType.Int32).Value = changeWerknemer.WerknemerID;
+                cmd.Parameters.Add("@tel", MySqlDbType.Int32).Value = changeWerknemer.TelefoonNummer;
                 cmd.Parameters.Add("@snaam", MySqlDbType.Text).Value = searchNaam;
 
                 try
@@ -130,7 +131,7 @@ namespace WinFormsApp1.Helpers
                         {
                             WerknemerID = Convert.ToInt32(rdr[0]),
                             Naam = Convert.ToString(rdr[1]),
-                            AantalUren = Convert.ToDouble(rdr[2])
+                            TelefoonNummer = Convert.ToInt32(rdr[2])
                         });
                     }
                     rdr.Close();
@@ -185,12 +186,15 @@ namespace WinFormsApp1.Helpers
         public List<Route> GetRouteFromDate(string date, List<Werknemer> lijstWerknemers)
         {
             List<Route> output = new List<Route>();
+
+            string searchDate = date.Remove(10);
+
             if (this.openConnection())
             {
                 string query = "SELECT * FROM route WHERE Datum=@datum";
                 MySqlCommand cmd = new MySqlCommand(query, connection);
 
-                cmd.Parameters.Add("@datum", MySqlDbType.VarChar).Value = date;
+                cmd.Parameters.Add("@datum", MySqlDbType.Text).Value = searchDate;
 
                 MySqlDataReader rdr = cmd.ExecuteReader();
 
@@ -200,14 +204,14 @@ namespace WinFormsApp1.Helpers
                     {
                         output.Add(new Route()
                         {
-                            RouteNummer = Convert.ToInt32(rdr[0]),
-                            Datum = Convert.ToDateTime(rdr[1]),
-                            Chauffeur = lijstWerknemers.FirstOrDefault(w => w.Naam == rdr[2]),
-                            BijRijder = lijstWerknemers.FirstOrDefault(w => w.Naam == rdr[3]),
-                            StartTijd = TimeSpan.Parse(Convert.ToString(rdr[4])),
-                            EindTijd = TimeSpan.Parse(Convert.ToString(rdr[5])),
-                            AantalUur = TimeSpan.Parse(Convert.ToString(rdr[6])),
-                            Bijzonderheden = Convert.ToString(rdr[7])
+                            RouteNummer = Convert.ToInt32(rdr[1]),
+                            Datum = Convert.ToDateTime(rdr[2]),
+                            Chauffeur = lijstWerknemers.FirstOrDefault(w => w.Naam == rdr[3].ToString()),
+                            BijRijder = lijstWerknemers.FirstOrDefault(w => w.Naam == rdr[4].ToString()),
+                            StartTijd = TimeSpan.Parse(Convert.ToString(rdr[5])),
+                            EindTijd = TimeSpan.Parse(Convert.ToString(rdr[6])),
+                            AantalUur = TimeSpan.Parse(Convert.ToString(rdr[7])),
+                            Bijzonderheden = Convert.ToString(rdr[8])
                         });
                     }
                     rdr.Close();
@@ -219,6 +223,43 @@ namespace WinFormsApp1.Helpers
             }
             this.closeConnection();
             return output;
+        }
+
+        public void UpdateRoute(Route updateRoute, Route oldRoute)
+        {
+            string oldDateFormat = oldRoute.Datum.ToString().Remove(10);
+            string newDateFormat = updateRoute.Datum.ToString().Remove(10);
+
+            string query = "UPDATE route SET RouteNummer= @newroutenum, Datum= @datum, Chauffeur= @chauff, Bijrijder= @bijr," +
+                "Starttijd= @startt, Eindtijd= @eindt, AantalUur= @aantaluur, Bijzonderheden =@bijz, DatumToegevoegd= @datumtoeg WHERE RouteNummer = @oldroutenum AND Datum= @oldDatum";
+
+            if (this.openConnection())
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+
+                cmd.Parameters.Add("@newroutenum", MySqlDbType.Int32).Value = updateRoute.RouteNummer;
+                cmd.Parameters.Add("@datum", MySqlDbType.Text).Value = newDateFormat;
+                cmd.Parameters.Add("@chauff", MySqlDbType.Text).Value = updateRoute.Chauffeur.Naam;
+                cmd.Parameters.Add("@bijr", MySqlDbType.Text).Value = updateRoute.BijRijder.Naam;
+                cmd.Parameters.Add("@startt", MySqlDbType.Time).Value = updateRoute.StartTijd;
+                cmd.Parameters.Add("@eindt", MySqlDbType.Time).Value = updateRoute.EindTijd;
+                cmd.Parameters.Add("@aantaluur", MySqlDbType.Time).Value = updateRoute.AantalUur;
+                cmd.Parameters.Add("@bijz", MySqlDbType.Text).Value = updateRoute.Bijzonderheden;
+                cmd.Parameters.Add("@datumtoeg", MySqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@oldroutenum", MySqlDbType.Int32).Value = oldRoute.RouteNummer;
+                cmd.Parameters.Add("@oldDatum", MySqlDbType.DateTime).Value = oldDateFormat;
+
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Succesvol Route Aangepast!");
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+            }
+            this.closeConnection();
         }
              
         #endregion

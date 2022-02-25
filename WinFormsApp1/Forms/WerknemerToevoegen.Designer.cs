@@ -37,6 +37,8 @@ namespace WinFormsApp1.Forms
             this.button1 = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -73,7 +75,7 @@ namespace WinFormsApp1.Forms
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(70, 186);
+            this.label3.Location = new System.Drawing.Point(70, 149);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(39, 13);
             this.label3.TabIndex = 3;
@@ -81,7 +83,7 @@ namespace WinFormsApp1.Forms
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(70, 202);
+            this.textBox2.Location = new System.Drawing.Point(70, 165);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(119, 23);
             this.textBox2.TabIndex = 4;
@@ -89,7 +91,7 @@ namespace WinFormsApp1.Forms
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(70, 254);
+            this.button1.Location = new System.Drawing.Point(70, 264);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(251, 38);
             this.button1.TabIndex = 5;
@@ -118,12 +120,32 @@ namespace WinFormsApp1.Forms
             this.label4.Text = "Toegevoegde Werknemers";
             this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(70, 217);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(119, 23);
+            this.textBox3.TabIndex = 9;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label5.Location = new System.Drawing.Point(70, 201);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(97, 13);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "Telefoonnummer:";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
+            // 
             // WerknemerToevoegen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(906, 621);
+            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.button1);
@@ -150,5 +172,7 @@ namespace WinFormsApp1.Forms
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Label label5;
     }
 }

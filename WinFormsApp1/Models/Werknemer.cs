@@ -8,18 +8,18 @@ namespace WinFormsApp1.Models
     {
         public int WerknemerID { get; set; }
         public string Naam { get; set; }
-        public double AantalUren { get; set; }
+        public int TelefoonNummer { get; set; }
 
         public Werknemer()
         {
 
         }
 
-        public Werknemer(int werknemerID, string naam)
+        public Werknemer(int werknemerID, string naam, int telefoonNummer)
         {
             WerknemerID = werknemerID;
             Naam = naam;
-            AantalUren = 0;
+            TelefoonNummer = telefoonNummer;
         }
     }
 }
